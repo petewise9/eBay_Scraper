@@ -2,7 +2,7 @@ name: Daily eBay Scraper
 
 on:
   schedule:
-    - cron: '0 13 * * *'  # Every day at 9AM Eastern (13:00 UTC)
+    - cron: '0 10 * * *'  # Runs every day at 10:00 AM UTC
   workflow_dispatch:       # Enables manual trigger
 
 jobs:
@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
@@ -24,12 +24,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run eBay scraper
-        run: python ebay_scraper.py
-
-      - name: Commit updated CSV
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add *.csv
-          git commit -m "Automated scrape results [$(date)]" || echo "No changes to commit"
-          git push
+        run: python scraper.py
