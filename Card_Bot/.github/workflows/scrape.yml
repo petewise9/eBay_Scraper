@@ -20,8 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd Card_Bot
           python -m pip install --upgrade pip
-          pip install -r Card_Bot/requirements.txt
+          pip install -r requirements.txt
 
       - name: Run eBay scraper
-        run: python Card_Bot/scraper.py
+        run: |
+          cd Card_Bot
+          python scraper.py
